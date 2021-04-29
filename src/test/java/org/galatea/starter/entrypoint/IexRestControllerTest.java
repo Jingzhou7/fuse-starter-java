@@ -1,5 +1,6 @@
 package org.galatea.starter.entrypoint;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -79,6 +80,53 @@ public class IexRestControllerTest extends ASpringTest {
             .accept(MediaType.APPLICATION_JSON_VALUE))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$", is(Collections.emptyList())))
+        .andReturn();
+  }
+
+  @Test
+  public void testGetHistoricalPrices() throws Exception {
+
+    MvcResult result = this.mvc.perform(
+        org.springframework.test.web.servlet.request.MockMvcRequestBuilders
+            .get("/iex/historicalPrices?symbol=FB"
+                + "&token=pk_eaf91b74308e4f0e9eaac429161c8f66")
+            .accept(MediaType.APPLICATION_JSON_VALUE))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$[0].symbol", is("FB")))
+        .andExpect(jsonPath("$[0].close",is(290.82)))
+        .andExpect(jsonPath("$[0].open",is(285.77)))
+        .andExpect(jsonPath("$[0].low",is(284.7)))
+        .andExpect(jsonPath("$[0].high",is(293.18)))
+        .andExpect(jsonPath("$[0].volume",is(21718831)))
+        .andReturn();
+  }
+
+
+  @Test
+  public void testGetHistoricalPricesWithRange() throws Exception {
+
+    MvcResult result = this.mvc.perform(
+        org.springframework.test.web.servlet.request.MockMvcRequestBuilders
+            .get("/iex/historicalPrices?symbol=FB&range=date/20210427&chartByDay=true&token=pk_eaf91b74308e4f0e9eaac429161c8f66")
+            .accept(MediaType.APPLICATION_JSON_VALUE))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$[0].symbol", is("FB")))
+        .andExpect(jsonPath("$[0].close",is(303.57)))
+        .andExpect(jsonPath("$[0].open",is(304.28)))
+        .andExpect(jsonPath("$[0].low",is(301.11)))
+        .andExpect(jsonPath("$[0].high",is(305.34)))
+        .andExpect(jsonPath("$[0].volume",is(15309256)))
+        .andReturn();
+  }
+
+  @Test
+  public void testGetHistoricalPricesWithoutSymbol() throws Exception {
+
+    MvcResult result = this.mvc.perform(
+        org.springframework.test.web.servlet.request.MockMvcRequestBuilders
+            .get("/iex/historicalPrices?token=pk_eaf91b74308e4f0e9eaac429161c8f66")
+            .accept(MediaType.APPLICATION_JSON_VALUE))
+        .andExpect(status().is4xxClientError())
         .andReturn();
   }
 }
