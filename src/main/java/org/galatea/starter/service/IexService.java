@@ -1,10 +1,12 @@
 package org.galatea.starter.service;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.galatea.starter.domain.IexHistoricalPrice;
 import org.galatea.starter.domain.IexLastTradedPrice;
 import org.galatea.starter.domain.IexSymbol;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,8 @@ public class IexService {
 
   @NonNull
   private IexClient iexClient;
+  @NonNull
+  private IexStockClient iexStockClient;
 
 
   /**
@@ -45,5 +49,24 @@ public class IexService {
     }
   }
 
+  /**
+   * Get the historical prices for the symbol passed in during a specific time range.
+   *
+   * @param symbol the symbol to get historical prices price for.
+   * @param range the period of time to get historical prices for. The default is 1m (one month).
+   *              It can also be a specific date.
+   * @param chartByDay Used only when range is date to return OHLCV data instead of minute bar data.
+   * @param token the API key used to hit the iex historical prices endpoint
+   * @return a list of IexHistoricalPrices objects for the given symbol and time range
+   */
+  public List<IexHistoricalPrice> getHistoricalPricesForSymbol(final String symbol, final String range,
+      final String chartByDay, final String token) {
+    if (range == null) {
+      return iexStockClient.getHistoricalPricesForSymbol(symbol, token);
+    } else {
+      return iexStockClient.getHistoricalPricesForSymbolWithRange(symbol, range, chartByDay, token);
+    }
+
+  }
 
 }

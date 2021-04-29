@@ -1,0 +1,59 @@
+{
+  "id" : "16369e06-78d4-40a7-98d1-3dbe0ba82fc9",
+  "name" : "historical_price_with_date",
+  "request" : {
+    "url" : "/stock/FB/chart/date/20210427?chartByDay=true&token=pk_eaf91b74308e4f0e9eaac429161c8f66",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "jsonBody" : [{
+      "close": 303.57,
+      "high": 305.34,
+      "low": 301.11,
+      "open": 304.28,
+      "symbol": "FB",
+      "volume": 15309256,
+      "id": "HISTORICAL_PRICES",
+      "key": "FB",
+      "subkey": "",
+      "date": "2021-04-27",
+      "updated": 1619570881000,
+      "changeOverTime": 0,
+      "marketChangeOverTime": 0,
+      "uOpen": 304.28,
+      "uClose": 303.57,
+      "uHigh": 305.34,
+      "uLow": 301.11,
+      "uVolume": 15309256,
+      "fOpen": 304.28,
+      "fClose": 303.57,
+      "fHigh": 305.34,
+      "fLow": 301.11,
+      "fVolume": 15309256,
+      "label": "Apr 27, 21",
+      "change": 0,
+      "changePercent": 0
+    }],
+    "headers" : {
+      "access-control-allow-credentials": "true",
+      "access-control-allow-headers": "Origin, X-Requested-With, Content-Type, Accept, Request-Source",
+      "access-control-allow-methods": "GET, OPTIONS",
+      "access-control-allow-origin": "*",
+      "content-encoding": "gzip",
+      "content-type": "application/json; charset=utf-8",
+      "date": "Wed, 28 Apr 2021 13:40:55 GMT",
+      "iexcloud-credits-used": "2",
+      "iexcloud-messages-used": "2",
+      "iexcloud-premium-credits-used": "0",
+      "iexcloud-premium-messages-used": "0",
+      "server": "nginx",
+      "x-content-type-options": "nosniff"
+    }
+  },
+  "uuid" : "16369e06-78d4-40a7-98d1-3dbe0ba82fc9",
+  "persistent" : true,
+  "insertionIndex" : 5
+}
+
+
